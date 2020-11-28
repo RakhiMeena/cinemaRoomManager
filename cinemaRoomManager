@@ -1,0 +1,121 @@
+package cinema;
+import java.util.*;
+public class Cinema {
+    
+    static int count=0,currentIncome=0;
+    public static void printCinema(char[][] arr,int N,int M){
+        System.out.println("Cinema:"); 
+        for(int k=1; k<=M;k++)
+        System.out.print(" "+k);
+        System.out.println();
+        for(int i=0;i<N;i++){
+            System.out.print((i+1)+ " ");
+                for(int j=0;j<M;j++){
+                    System.out.print(arr[i][j]+" ");
+                }
+            System.out.println();
+            }
+    }
+      
+      public static void pricePaid(char [][] arr,int N,int M){
+
+          Scanner sc = new Scanner(System.in);
+          System.out.println("Enter a row number:");
+            int row = sc.nextInt();
+            System.out.println("Enter a seat number in that row:");
+            int column = sc.nextInt();
+            
+            while((row > N || row < 0)||( column > M || column < 0)){
+                System.out.println("Wrong input!");
+                System.out.println("Enter a row number:");
+                 row = sc.nextInt();
+                System.out.println("Enter a seat number in that row:");
+                 column = sc.nextInt();
+            }
+            if(arr[row-1][column-1] !='S' && row <= N && column <= M){
+                System.out.println("That ticket has already been purchased!");
+                System.out.println("Enter a row number:");
+                 row = sc.nextInt();
+                System.out.println("Enter a seat number in that row:");
+                 column = sc.nextInt();
+            }
+            for(int i=0;i<M;i++){
+                for(int j=0;j<N;j++){
+                    if(i+1 == row && column == j+1){
+                        arr[i][j]='B';
+                        count++;
+                    }
+                }
+            }
+            int totalSeats=M*N;
+            int price=0;
+            if(totalSeats < 60){
+                price = 10; 
+            }else{
+                int frontHalf = N/2;
+                int backHalf = N;
+                if(frontHalf >= row) {
+                	price=10;
+                }else if(frontHalf < row && backHalf >= row) {
+                	price =8;
+                }
+            }
+            currentIncome += price;
+            System.out.println("Ticket price:\n $"+price);
+      }
+   
+    public static void main(String[] args) {
+       
+       
+  
+  Scanner sc = new Scanner(System.in);
+            System.out.println("Enter the number of rows:");
+            int N = sc.nextInt();
+            System.out.println("Enter the number of seats in each row:");
+            int M = sc.nextInt();
+            
+            
+            char [][] arr = new char[N][M];
+            for(int i=0;i<N;i++){
+                for(int j=0;j<M;j++){
+                    arr[i][j]='S';
+                }  
+            }
+                       
+            int choice;
+            System.out.println("1. Show the seats");
+                System.out.println("2. Buy a ticket");
+                System.out.println("3. Statistics");
+                System.out.println("0. Exit"); 
+                choice = sc.nextInt();
+            while(choice!=0){
+                switch(choice){
+                    case 1: printCinema(arr,N,M);
+                            break;
+                    case 2: pricePaid(arr,N,M);
+                            break;
+                    case 3: System.out.println("Number of purchased tickets:"+count); 
+                            int totalSeat=M*N;
+                            double percentage = (double)count*100/totalSeat;
+                            String strDouble = String.format("%.2f", percentage);  
+                            System.out.println("Percentage: "+strDouble+"%");
+                            //also can be done as........................
+                            //DecimalFormat df = new DecimalFormat("#.##"); 
+                            //String formatted = df.format(2.456345);
+                            //System.out.println(formatted);
+
+                            System.out.println("Current income: $"+currentIncome);
+                            System.out.println("Total income: $"+totalSeat*10);      
+                            break;    
+                    case 0: System.exit(0);
+                            break;                
+                }  
+                System.out.println("1. Show the seats");
+                System.out.println("2. Buy a ticket");
+                System.out.println("3. Statistics");
+                System.out.println("0. Exit"); 
+                choice = sc.nextInt();
+            }
+            
+            }
+}
