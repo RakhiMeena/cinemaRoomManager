@@ -1,0 +1,99 @@
+package tictactoe;
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        // write your code here
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter cells: ");
+        char[] chars = scanner.nextLine().toCharArray();
+        char[][] matrix = new char[3][3];
+
+        System.out.println("---------");
+        for (int i = 0; i < 3; i++) {
+            System.out.print("| ");
+            for (int j = 0; j < 3; j++) {
+                matrix[i][j] = chars[j + 3 * i];
+                System.out.print(matrix[i][j]+ " ");
+            }
+            System.out.println("|");
+        }
+        System.out.println("---------");
+        /*
+         int xNum = 0;
+        int oNum = 0;
+        boolean xWin = false;
+        boolean oWin = false;
+        for (char ch : chars) {
+            if (ch == 'X') {
+                xNum++;
+            } else if (ch == 'O') {
+                oNum++;
+            }
+        }
+        int rowOne = matrix[0][0] + matrix[0][1] + matrix[0][2];
+        int rowTwo = matrix[1][0] + matrix[1][1] + matrix[1][2];
+        int rowThree = matrix[2][0] + matrix[2][1] + matrix[2][2];
+        int columnOne = matrix[0][0] + matrix[1][0] + matrix[2][0];
+        int columnTwo = matrix[0][1] + matrix[1][1] + matrix[2][1];
+        int columnThree = matrix[0][2] + matrix[1][2] + matrix[2][2];
+        int diagonalOne = matrix[0][0] + matrix[1][1] + matrix[2][2];
+        int diagonalTwo = matrix[0][2] + matrix[1][1] + matrix[2][0];
+        if (rowOne == 264 || rowTwo == 264 || rowThree == 264 || columnOne == 264
+                || columnTwo == 264 || columnThree == 264 || diagonalOne == 264 || diagonalTwo == 264) {
+            xWin = true;
+        }
+        if (rowOne == 237 || rowTwo == 237 || rowThree == 237 || columnOne == 237
+                || columnTwo == 237 || columnThree == 237 || diagonalOne == 237 || diagonalTwo == 237) {
+            oWin = true;
+        }
+
+        if (Math.abs(xNum - oNum) > 1 || xWin == true && oWin == true) {
+            System.out.println("Impossible");
+        } else if (xNum + oNum == 9 && xWin == false && oWin == false) {
+            System.out.println("Draw");
+        } else if (xNum + oNum < 9 && xWin == false && oWin == false) {
+            System.out.println("Game not finished");
+        } else if (xWin == true) {
+            System.out.println("X wins");
+        } else if (oWin == true) {
+            System.out.println("O wins");
+        }*/
+
+        while (true) {
+            System.out.print("Enter the coordinates: ");
+            String input = scanner.nextLine();
+            int i , j;
+            try {
+                String [] pieces = input.split(" ");
+                i = Integer.parseInt(pieces[0]);
+                j = Integer.parseInt(pieces[1]);
+
+            }catch (NumberFormatException e) {
+                System.out.println("You should enter numbers!");
+                continue;
+            }
+
+            if (i < 1 || i > 3 || j < 1 || j > 3){
+                System.out.println("Coordinates should be from 1 to 3!");
+                continue;
+            }
+            if (matrix[3 - j][i - 1] != '_') {
+                System.out.println("This cell is occupied! Choose another one!");
+                continue;
+            }
+            matrix[3 - j][i - 1] = 'X';
+            break;
+        }
+        System.out.println("---------");
+        for (int i = 0; i < 3; i++) {
+            System.out.print("| ");
+            for (int j = 0; j < 3; j++) {
+                System.out.print(matrix[i][j]+ " ");
+            }
+            System.out.println("| ");
+        }
+        System.out.println("---------");
+    }
+}
